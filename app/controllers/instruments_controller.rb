@@ -12,6 +12,7 @@ class InstrumentsController < ApplicationController
   # GET /instruments/1
   # GET /instruments/1.json
   def show
+    @bid = Bid.new
   end
 
   # GET /instruments/new

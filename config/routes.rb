@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  post "instruments/:id/bids", to: "bids#create", as: "create_bid"
+  post "bids", to: "bids#create", as: "bids"
   resources :line_items
   resources :carts
   resources :instruments
