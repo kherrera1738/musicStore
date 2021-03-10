@@ -18,7 +18,11 @@
       </ul>
 
       <div class="feature-image">
-        <%= image_tag(@instrument.image_url(:default)) %>
+        <% if !@instrument.image_url.blank? %>
+          <%= image_tag(@instrument.image_url(:default)) %>
+        <% else %>
+          <%= image_tag("placeholder.jpg") %>
+        <% end %>
       </div>
 
       <div class="content pa4 mt3 bg-white border-radius-3">
@@ -60,9 +64,16 @@
     </div>
     <div class="column is-3 is-offset-1">
       <div class="bg-white pa4 border-radius-3">
-        <h4 class="title is-5 has-text-centered"><%= number_to_currency(@instrument.price) %></h4>
+        <h4 class="title is-5 has-text-centered"><%= number_to_currency(@instrument.max_bid) %></h4>
         <p class="has-text-centered mb4">Sold by <%= @instrument.user.name %></p>
-        <%= button_to 'Add to cart', line_items_path(instrument_id: @instrument), class: 'button is-warning add-to-cart' %>
+        <%= button_to 'Buy Now', line_items_path(instrument_id: @instrument), class: 'button is-warning add-to-cart' %>
+      </div>
+      <div class="bg-white pa4 border-radius-3">
+        <h4 class="title is-5 has-text-centered"> Min Bid: <%= number_to_currency(@instrument.max_bid + 0.01) %></h4>
+        <%= form_with url: create_bid_url(@instrument.id), method: :post do |form| %>
+          <%= form.text_field :bid, class: "input mb4" %>
+          <%= form.submit "Add Bid", class: 'button is-warning add-to-cart' %>
+        <% end %>
       </div>
     </div>
   </div>

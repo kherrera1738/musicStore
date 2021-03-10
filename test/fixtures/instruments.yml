@@ -1,19 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  brand: MyString
-  model: MyString
+  brand: Fender
+  model: Strat
   description: MyText
-  condition: MyString
-  finish: MyString
+  condition: New
+  finish: Black
   title: MyString
   price: 9.99
+  user: one
 
 two:
-  brand: MyString
+  brand: Gibson
   model: MyString
   description: MyText
-  condition: MyString
-  finish: MyString
+  condition: Excellent
+  finish: White
   title: MyString
   price: 9.99
+  user: one

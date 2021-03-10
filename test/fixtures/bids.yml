@@ -6,6 +6,6 @@ one:
   instrument: one
 
 two:
-  price: 9.99
-  user: two
-  instrument: two
+  price: 10
+  user: one
+  instrument: one

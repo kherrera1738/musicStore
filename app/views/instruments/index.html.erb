@@ -13,7 +13,11 @@
     
     <div class="instrument border-light">
       <div class="instrument-thumb">
-        <%= link_to image_tag(instrument.image_url(:thumb)), instrument %>
+        <% if !instrument.image_url.blank? %>
+          <%= link_to image_tag(instrument.image_url(:thumb)), instrument %>
+        <% else %>
+          <%= link_to image_tag("placeholder.jpg"), instrument %>
+        <% end %>
         
         <% if instrument.condition? %>
           <div class="condition">
@@ -29,7 +33,7 @@
 
         <p class="has-text-gray fg pt1"> Sold by <%= instrument.user.name %></p>
 
-        <p class="f3 fw6 has-text-right pt2 price"> <%= number_to_currency(instrument.price) %> </p>
+        <p class="f3 fw6 has-text-right pt2 price"> <%= number_to_currency(instrument.max_bid) %> </p>
 
         <% if instrument_author(instrument) %>
           <%= link_to "Edit", edit_instrument_path(instrument), class: "button is-small" %>

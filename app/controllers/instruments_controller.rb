@@ -1,6 +1,7 @@
 class InstrumentsController < ApplicationController
   before_action :set_instrument, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  after_action :create_bid, only: [ :create ]
 
   # GET /instruments
   # GET /instruments.json
@@ -55,10 +56,14 @@ class InstrumentsController < ApplicationController
   # DELETE /instruments/1
   # DELETE /instruments/1.json
   def destroy
-    @instrument.destroy
-    respond_to do |format|
-      format.html { redirect_to instruments_url, notice: 'Instrument was successfully destroyed.' }
-      format.json { head :no_content }
+    begin
+      @instrument.destroy
+      respond_to do |format|
+        format.html { redirect_to instruments_url, notice: 'Instrument was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    rescue ActiveRecord::RecordNotDestroyed => error 
+      puts "errors that prevented destruction: #{error.record.errors}"
     end
   end
 
@@ -72,4 +77,9 @@ class InstrumentsController < ApplicationController
     def instrument_params
       params.require(:instrument).permit(:brand, :model, :description, :condition, :finish, :title, :price, :image)
     end
+
+    # Create a bid after a posting is created
+    def create_bid
+      @instrument.bids.create!(user: current_user, price: @instrument.price)
+    end 
 end

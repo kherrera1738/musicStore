@@ -4,7 +4,11 @@
   </div>
   <div class="column is-2">
     <figure class="is-128x128 image">
-      <%= image_tag(line_item.instrument.image_url(:thumb)) %>
+        <% if !line_item.instrument.image_url.blank? %>
+          <%= image_tag(line_item.instrument.image_url(:thumb)) %>
+        <% else %>
+          <%= image_tag("placeholder.jpg") %>
+        <% end %>
     </figure>
   </div>
   <div class="column is-9">
