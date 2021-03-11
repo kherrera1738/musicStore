@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   post "bids", to: "bids#create", as: "bids"
+  get "watched_items", to: "watched_items#index", as: "watched_items"
+  post "watched_items", to: "watched_items#create"
+  delete "watched_item/:id", to: "watched_items#destroy", as: "watched_item"
   resources :line_items
   resources :carts
   resources :instruments

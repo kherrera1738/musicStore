@@ -23,7 +23,7 @@ class BidMakingTest < ActionDispatch::IntegrationTest
 
   test "should create new bid" do
     assert_difference('Bid.count') do
-      post create_bid_url(@instrument), params: { bid: { price: 20, user_id: @user.id } }
+      post bids_url, params: { bid: { price: 20, user_id: @user.id, instrument_id: @instrument.id } }
     end
 
     assert_redirected_to instrument_url(@instrument)
@@ -33,14 +33,14 @@ class BidMakingTest < ActionDispatch::IntegrationTest
 
   test "should not allow unathenticated users to make bid" do 
     sign_out @user
-    post create_bid_url(@instrument), params: { bid: { price: 20, user_id: @user.id } }
+    post bids_url, params: { bid: { price: 20, user_id: @user.id, instrument_id: @instrument.id } }
 
     assert_redirected_to new_user_session_path
   end
 
   test "should not add bid if it is lower than the max bid" do
     assert_no_difference('Bid.count') do
-      post create_bid_url(@instrument), params: { bid: { price: 0, user_id: @user.id } }
+      post bids_url, params: { bid: { price: 0, user_id: @user.id, instrument_id: @instrument.id } }
     end
 
     assert_redirected_to instrument_url(@instrument)
@@ -58,7 +58,7 @@ class BidMakingTest < ActionDispatch::IntegrationTest
                                           title: "title" )
 
     assert_no_difference('Bid.count') do
-      post create_bid_url(no_bids_instrument), params: { bid: { price: -1, user_id: @user.id } }
+      post bids_url, params: { bid: { price: -1, user_id: @user.id, instrument_id: no_bids_instrument.id } }
     end
 
     assert_redirected_to instrument_url(no_bids_instrument)
@@ -76,7 +76,7 @@ class BidMakingTest < ActionDispatch::IntegrationTest
                                           title: "title" )
 
     assert_difference('Bid.count') do
-      post create_bid_url(no_bids_instrument), params: { bid: { price: 10.01, user_id: @user.id } }
+      post bids_url, params: { bid: { price: 10.01, user_id: @user.id, instrument_id: no_bids_instrument.id } }
     end
 
     assert_redirected_to instrument_url(no_bids_instrument)

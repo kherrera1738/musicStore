@@ -13,6 +13,9 @@ class InstrumentsController < ApplicationController
   # GET /instruments/1.json
   def show
     @bid = Bid.new
+    @watched_item = WatchedItem.new
+    # p current_user.get_watched_item(@instrument.id)
+    # p watched_item_path(current_user.get_watched_item(@instrument.id))
   end
 
   # GET /instruments/new

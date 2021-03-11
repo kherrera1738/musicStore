@@ -3,6 +3,7 @@ class Instrument < ApplicationRecord
   belongs_to :user, optional: true
   has_many :line_items, dependent: :destroy
   has_many :bids, dependent: :destroy
+  has_many :watched_items, dependent: :destroy
 
   mount_uploader :image, ImageUploader
   serialize :image, JSON # If you use SQLite, add this line

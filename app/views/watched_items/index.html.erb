@@ -1,0 +1,57 @@
+<% content_for :body_class, 'bg-light' %>
+
+<section class="section instrument-show">
+  <div class="columns">
+    <div class="column is-8">
+      <h1 class="title is-2">Posts</h1>
+
+      <div class="content pa4 mt3 bg-white border-radius-3">
+        <% if current_user.instruments.any? %>
+          <table class="table is-narrow">
+            <tr>
+              <th>Title</th>
+              <th>Post</th>
+              <th>Edit</th>
+            </tr>
+            <% current_user.instruments.each do |instrument| %>
+              <tr>
+                <td><%= instrument.title%></td>
+                <td>
+                  <%= link_to "View Post", instrument_path(instrument) %>
+                </td>
+                <td>
+                  <%= link_to "Edit Post", edit_instrument_path(instrument) %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        <% else %>
+          <h3 style="margin-bottom: 0" >No posts</h3>
+        <% end %>
+      </div>
+    
+      <h1 class="title is-2">Watchlist</h1>
+
+      <div class="content pa4 mt3 bg-white border-radius-3">
+        <% if @watched_items.any? %>
+          <table class="table is-narrow">
+            <tr>
+              <th>Title</th>
+              <th>Post</th>
+            </tr>
+            <% @watched_items.each do |item| %>
+              <tr>
+                <td><%= item.instrument.title%></td>
+                <td>
+                  <%= link_to "View Post", instrument_path(item.instrument) %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+        <% else %>
+          <h3 style="margin-bottom: 0" >No instruments on watchlist</h3>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
