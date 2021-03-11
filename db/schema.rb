@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_192642) do
+ActiveRecord::Schema.define(version: 2021_03_11_210804) do
 
   create_table "bids", force: :cascade do |t|
     t.decimal "price", precision: 5, scale: 2, default: "0.0"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_192642) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "image"
     t.integer "user_id"
+    t.boolean "closed", default: false
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -73,10 +74,21 @@ ActiveRecord::Schema.define(version: 2021_03_10_192642) do
     t.index ["user_id"], name: "index_watched_items_on_user_id"
   end
 
+  create_table "winning_bids", force: :cascade do |t|
+    t.integer "instrument_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["instrument_id"], name: "index_winning_bids_on_instrument_id"
+    t.index ["user_id"], name: "index_winning_bids_on_user_id"
+  end
+
   add_foreign_key "bids", "instruments"
   add_foreign_key "bids", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "instruments"
   add_foreign_key "watched_items", "instruments"
   add_foreign_key "watched_items", "users"
+  add_foreign_key "winning_bids", "instruments"
+  add_foreign_key "winning_bids", "users"
 end

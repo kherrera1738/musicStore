@@ -1,5 +1,11 @@
 <% content_for :body_class, 'bg-light' %>
 
+<% if @instrument.closed %>
+  <div class="notification is-link global-notification">
+    <p class="notice">This listing has been closed.</p>
+  </div>
+<% end %>
+
 <section class="section instrument-show">
   <div class="columns">
     <div class="column is-8">
@@ -79,11 +85,11 @@
                                   value: @instrument.id %>
             <%= form.hidden_field :user_id,
                                   value: current_user.id %>
-            <% if !instrument_author(@instrument) %>
+            <% if !instrument_author(@instrument) and !@instrument.closed %>
               <%= form.submit "Add Bid", class: 'button is-warning add-to-cart' %>
             <% end %>
           <% end %>
-          <% if !instrument_author(@instrument) %>
+          <% if !instrument_author(@instrument) and !@instrument.closed %>
             <hr>
             <% if !current_user.is_part_of_watchlist?(@instrument.id) %>
               <%= form_with model: @watched_item do |form| %>
@@ -119,7 +125,7 @@
     </div>
   </div>
 
-  <% if instrument_author(@instrument) %>
+  <% if instrument_author(@instrument) and !@instrument.closed %>
     <%= link_to 'Edit', edit_instrument_path(@instrument), class: 'button' %>
   <% end %>
 </section>

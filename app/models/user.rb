@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :instruments
   has_many :bids
   has_many :watched_items, dependent: :destroy
+  has_many :winning_bids, dependent: :destroy
 
   def is_part_of_watchlist?(instrument_id)
     !watched_items.empty? and watched_items.where(instrument_id: instrument_id).exists?

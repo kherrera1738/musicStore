@@ -12,3 +12,8 @@
 one:
   name: kev
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+
+two:
+  name: two
+  email: sample2@exmaple.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>

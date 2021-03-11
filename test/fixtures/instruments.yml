@@ -19,3 +19,13 @@ two:
   title: MyString
   price: 9.99
   user: one
+
+three:
+  brand: Gibson
+  model: MyString
+  description: MyText
+  condition: Excellent
+  finish: White
+  title: MyString
+  price: 9.99
+  user: one

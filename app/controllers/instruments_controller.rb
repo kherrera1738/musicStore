@@ -1,6 +1,8 @@
 class InstrumentsController < ApplicationController
   before_action :set_instrument, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :is_closed?, only: [:edit, :update]
+  after_action :create_winning_bid, only: [ :update ]
   after_action :create_bid, only: [ :create ]
 
   # GET /instruments
@@ -79,11 +81,24 @@ class InstrumentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def instrument_params
-      params.require(:instrument).permit(:brand, :model, :description, :condition, :finish, :title, :price, :image)
+      params.require(:instrument).permit(:brand, :model, :description, :condition, :finish, :title, :price, :image, :closed)
     end
 
     # Create a bid after a posting is created
     def create_bid
       @instrument.bids.create!(user: current_user, price: @instrument.price)
     end 
+
+    def is_closed?
+      if @instrument.closed
+        redirect_to @instrument, alert: "You cannot edit a closed listing." 
+      end
+    end
+
+    def create_winning_bid
+      if instrument_params[:closed]
+        winner = @instrument.bids.max.user
+        WinningBid.create!(user: winner, instrument: @instrument)
+      end 
+    end
 end
