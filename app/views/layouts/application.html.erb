@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Flanger</title>
+    <title>Chorus</title>
     <%= csrf_meta_tags %>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,10 +22,10 @@
       <p class="alert"><%= alert %></p>
     </div>
     <% end %>
-     <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+     <nav class="navbar is-info" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <%= link_to root_path, class:"navbar-item" do %>
-          <h1 class="title is-5">Flanger</h1>
+          <h1 class="title is-5">Chorus</h1>
         <% end  %>
       <div class="navbar-burger burger" data-target="navbar">
         <span></span>
@@ -40,7 +40,7 @@
             <div class="field is-grouped">
 
             <% if cart_has_items %> 
-              <%= link_to cart_path(@cart), class:"navbar-item button is-warning" do %> 
+              <%= link_to cart_path(@cart), class:"navbar-item button is-info" do %> 
               <span class="icon is-small">
                 <i class="fa fa-shopping-cart"></i>
               </span>
@@ -63,8 +63,8 @@
               </div>
             <% else %>
 
-              <%= link_to "Sign In", new_user_session_path, class:"navbar-item button is-warning" %>
-              <%= link_to "Sign up", new_user_registration_path, class:"navbar-item button is-warning"%>
+              <%= link_to "Sign In", new_user_session_path, class:"navbar-item button is-info" %>
+              <%= link_to "Sign up", new_user_registration_path, class:"navbar-item button is-info"%>
 
             <% end %>
 
