@@ -24,8 +24,8 @@
       </ul>
 
       <div class="feature-image">
-        <% if !@instrument.image_url.blank? %>
-          <%= image_tag(@instrument.image_url(:default)) %>
+        <% if @instrument.image.attached? %>
+          <%= image_tag(@instrument.display_default) %>
         <% else %>
           <%= image_tag("placeholder.jpg") %>
         <% end %>

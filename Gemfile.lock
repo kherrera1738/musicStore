@@ -319,6 +319,7 @@ DEPENDENCIES
   guard (= 2.16.2)
   guard-livereload (~> 2.5, >= 2.5.2)
   guard-minitest (= 2.4.6)
+  image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mini_magick

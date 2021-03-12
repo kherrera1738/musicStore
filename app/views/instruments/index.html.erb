@@ -13,8 +13,8 @@
     <% if !instrument.closed %>
       <div class="instrument border-light">
         <div class="instrument-thumb">
-          <% if !instrument.image_url.blank? %>
-            <%= link_to image_tag(instrument.image_url(:thumb)), instrument %>
+          <% if instrument.image.attached? %>
+            <%= link_to image_tag(instrument.display_thumb), instrument %>
           <% else %>
             <%= link_to image_tag("placeholder.jpg"), instrument %>
           <% end %>

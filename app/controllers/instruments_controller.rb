@@ -33,7 +33,7 @@ class InstrumentsController < ApplicationController
   # POST /instruments.json
   def create
     @instrument = current_user.instruments.build(instrument_params)
-
+    @instrument.image.attach(params[:instrument][:image])
     respond_to do |format|
       if @instrument.save
         format.html { redirect_to @instrument, notice: 'Instrument was successfully created.' }
