@@ -6,15 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 user = User.new(
-  id: 3,
-  name: "Andy Leverenz",
-  email: "andy@example.com",
+  id: 1,
+  name: "Kevyn Herrera",
+  email: "kevynherrera1738@gmail.com",
   password: "password",
   password_confirmation: "password"
 )
 user.save!
 
-Instrument.create!([{
+instruments = [{
   title: "Paul Reed Smith Paul's Guitar 2013",
   brand: "PRS",
   model: "Paul Reed Smith Paul's Guitar",
@@ -22,9 +22,9 @@ Instrument.create!([{
   condition: "Excellent",
   finish: "Red",
   price: "2999",
-  image: Rails.root.join("app/assets/images/instrument1.jpg").open,
+  # image: Rails.root.join("app/assets/images/instrument1.jpg").open,
   user_id: user.id
-},
+}, 
 {
   title: "2017 Gibson Les Paul Standard Bourbon Burst 100% Mint/Unplayed Condition!",
   brand: "Gibson",
@@ -33,7 +33,7 @@ Instrument.create!([{
   condition: "Used",
   finish: "Red",
   price: "2595",
-  image: Rails.root.join("app/assets/images/instrument2.jpg").open,
+  # image: Rails.root.join("app/assets/images/instrument2.jpg").open,
   user_id: user.id
 },
 {
@@ -45,7 +45,7 @@ The nitro-cellulose lacquer finish and our proprietary antiquing process make ea
   condition: "New",
   finish: "Seafoam",
   price: "2845",
-  image: Rails.root.join("app/assets/images/instrument3.jpg").open,
+  # image: Rails.root.join("app/assets/images/instrument3.jpg").open,
   user_id: user.id
 },
 {
@@ -56,7 +56,7 @@ The nitro-cellulose lacquer finish and our proprietary antiquing process make ea
   condition: "New",
   finish: "Clear",
   price: "960",
-  image: Rails.root.join("app/assets/images/instrument4.jpg").open,
+  # image: Rails.root.join("app/assets/images/instrument4.jpg").open,
   user_id: user.id
 },
 {
@@ -67,7 +67,7 @@ The nitro-cellulose lacquer finish and our proprietary antiquing process make ea
   condition: "Used",
   finish: "Red",
   price: "599",
-  image: Rails.root.join("app/assets/images/instrument5.jpg").open,
+  # image: Rails.root.join("app/assets/images/instrument5.jpg").open,
   user_id: user.id
 },
 {
@@ -78,6 +78,13 @@ The nitro-cellulose lacquer finish and our proprietary antiquing process make ea
   condition: "Used",
   finish: "Yellow",
   price: "799",
-  image: Rails.root.join("app/assets/images/instrument6.jpg").open,
+  # image: Rails.root.join("app/assets/images/instrument6.jpg").open,
   user_id: user.id
-}])
+}]
+
+instruments.each_with_index do |instrument_hash, index|
+  instrument = Instrument.create!(instrument_hash)
+  instrument.image.attach(io: File.open(Rails.root.join("app/assets/images/instrument#{index + 1}.jpg")), 
+                                              filename: "instrument#{index + 1}.jpg")
+  instrument.bids.create!(user: User.first, price: instrument.price)
+end

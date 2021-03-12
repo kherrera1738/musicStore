@@ -39,21 +39,21 @@
       <h1 class="title is-2">Winning bids</h1>
 
       <div class="content pa4 mt3 bg-white border-radius-3">
-        <% if current_user.instruments.any? %>
+        <% if current_user.winning_bids.any? %>
           <table class="table is-narrow">
             <tr>
               <th>Title</th>
               <th>Post</th>
               <th>Buy</th>
             </tr>
-            <% current_user.instruments.each do |instrument| %>
+            <% current_user.winning_bids.each do |bid| %>
               <tr>
-                <td><%= instrument.title%></td>
+                <td><%= bid.instrument.title%></td>
                 <td>
-                  <%= link_to "View Post", instrument_path(instrument) %>
+                  <%= link_to "View Post", instrument_path(bid.instrument) %>
                 </td>
                 <td>
-                  <%= link_to "Add to cart", line_items_path(instrument_id: instrument), method: :post %>
+                  <%= link_to "Add to cart", line_items_path(instrument_id: bid.instrument), method: :post %>
                 </td>
               </tr>
             <% end %>
