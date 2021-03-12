@@ -28,7 +28,7 @@ gem 'image_processing', '~> 1.2'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-gem 'bulma-rails', '~> 0.6.1'
+gem 'bulma-rails'
 gem 'simple_form', '~> 5.0'
 gem 'devise', '~> 4.7'
 gem 'gravatar_image_tag', '~> 1.2'
